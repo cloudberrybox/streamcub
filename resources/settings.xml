@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Account">
+		<setting id="username" type="text" label="20001" default=""/>
+		<setting id="password" type="text" label="20002" default=""/>
+	</category>
+	<category label="Parental Control">
+		<setting id="adult_menu" type="bool" label="20004" default="true"/>
+		<setting id="adult_filter" type="bool" label="20005" default="false"/>
+		<setting id="file_size_filter" type="enum" label="20007" values="None|1 GB|2 GB|3 GB|5 GB|6 GB|7 GB|8 GB|9 GB|10 GB|11 GB|12 GB|13 GB|14 GB|15 GB|16 GB|17 GB|18 GB|19 GB|20 GB" default="5" />
+	</category>
+	<category label="General">
+		<setting id="search_only_cached_files" type="bool" label="20006" default="false"/>
+	</category>
+	<setting id="first_time_startup" type="text" label="0" default="" visible="false"/>
+	<setting id="last_tv_show_search" type="text" label="0" default="" visible="false"/>
+	<setting id="last_movie_search" type="text" label="0" default="" visible="false"/>
+	<setting id="last_cache_search" type="text" label="0" default="" visible="false"/>
+
+	
+
+</settings>
+

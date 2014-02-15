@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="20001">Login</string>
+	<string id="20002">Password</string>
+	<string id="20003">API Key</string>
+	<string id="20004">Show Adult menu</string>
+	<string id="20005">Filter Adult content in searches</string>
+	<string id="20006">Search only cached files</string>
+	<string id="20007">Max file size</string>
+</strings>
+

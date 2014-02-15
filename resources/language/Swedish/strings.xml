@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="20001">Login</string>
+	<string id="20002">Lösenord</string>
+	<string id="20003">API Nyckel</string>
+	<string id="20004">Visa Erotik i menyn</string>
+	<string id="20005">Filtrera bort fuxet meterial</string>
+	<string id="20006">Sök endast cachade filer</string>
+	<string id="20007">Max filstorlek</string>
+</strings>
+
