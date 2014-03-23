@@ -58,7 +58,7 @@ def furkJsonRequest(method, req, args={}, returnStatus=False, anon=False, conn=F
             jdata = json.dumps(args)
             conn.request('GET', req, jdata)
             print(req)
-            print("furk json url: "+req)
+            #print("furk json url: "+req)
     #conn.go()
 
     response = conn.getresponse()

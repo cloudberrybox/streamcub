@@ -8,7 +8,7 @@ from utils import settings
 __plugin__ = 'Streamcub Library'
 __author__ = 'Streamcub Team'
 __url__ = 'http://www.streamcub.com'
-__version__ = '1.1.9'
+__version__ = '1.2.0'
 
 print "[PLUGIN] '%s: version %s' initialized!" % (__plugin__, __version__)
 
@@ -157,16 +157,18 @@ def LiveTVMenu(cat):  #homescreen
 		common.createStreamListItem('20 - ORF 1', 'http://images.wikia.com/how-i-met-your-mother/de/images/a/a3/Logo_tv_orf_1.jpg', 'http://194.232.200.128:1935/orf1_q6a/orf.sdp/hasbahca.m3u8')
 		common.createStreamListItem('21 - KIKA', 'http://www.fchellaskagran.at/wb/media/Unlimitid/tmp_hellas2009_logo_kika.jpg', 'rtmp://109.236.89.165/live/kika')
 		common.createStreamListItem('22 - ARD', 'http://nepidd.files.wordpress.com/2010/09/ard_logo.png', 'rtmp://109.236.89.165/live/ard')
-	elif cat == 'french':
-		common.createStreamListItem('1 - BoardRiders', 'http://static.playtv.fr/img/tv_channels/142_medium.png', 'http://live240.impek.com/brtv')
-		common.createStreamListItem('2 - Calaisis TV', 'http://static.playtv.fr/img/tv_channels/143_medium.png', 'rtsp://91.121.2.60/calaistv')
-		common.createStreamListItem('3 - Canal Savoir', 'http://upload.wikimedia.org/wikipedia/fr/thumb/d/d1/Logo_Canal_Savoir.svg/257px-Logo_Canal_Savoir.svg.png', 'mms://stream2.canal.qc.ca/enOndes_haut_debit')
-		common.createStreamListItem('4 - Tele Antilles', 'http://static.playtv.fr/img/tv_channels/182_medium.png', 'http://live240.impek.com/soleiltv')
-		common.createStreamListItem('5 - TVM Est Parisien', 'http://static.playtv.fr/img/tv_channels/199_medium.png', 'rtmp://rtmp.infomaniak.ch/livecast playpath=cineplume swfUrl=http://static.infomaniak.ch/livetv/player-v3.swf?cfg=http://static.infomaniak.ch/configvideo/cineplume/tvm/359_config.xml pageUrl=http://www.playtv.fr/television/#tvm-est-parisien swfVfy=true live=true')
 	else:
-		common.createListItem('French', True, url+'LiveTVMenu&category=french')
+
+		common.createListItem('News', True, 'plugin://plugin.video.filmon/?description&group=NEWS TV&iconimage=http://static.filmon.com/couch/groups/1/big_logo.png&mode=3&name=NEWS TV&programme_id&startdate_time&url=1')
+		common.createListItem('Sport', True, 'plugin://plugin.video.filmon/?description&group=SPORTS&iconimage=http://static.filmon.com/couch/groups/2/big_logo.png&mode=3&name=SPORTS&programme_id&startdate_time&url=2')
+		common.createListItem('Australian', True, 'plugin://plugin.video.filmon/?description&group=AUSTRALIAN TV&iconimage=http://static.filmon.com/couch/groups/4/big_logo.png&mode=3&name=AUSTRALIAN TV&programme_id&startdate_time&url=4')
+		common.createListItem('French', True, 'plugin://plugin.video.filmon/?description&group=FRENCH TV&iconimage=http://static.filmon.com/couch/groups/27/big_logo.png&mode=3&name=FRENCH TV&programme_id&startdate_time&url=27')
 		common.createListItem('German', True, url+'LiveTVMenu&category=german')
+		common.createListItem('Italian', True, 'plugin://plugin.video.filmon/?description&group=ITALIAN TV&iconimage=http://static.filmon.com/couch/groups/30/big_logo.png&mode=3&name=ITALIAN TV&programme_id&startdate_time&url=30')
+		common.createListItem('Middle Eastern', True, 'plugin://plugin.video.filmon/?description&group=MIDDLE EASTERN TV&iconimage=http://static.filmon.com/couch/groups/28/big_logo.png&mode=3&name=MIDDLE EASTERN TV&programme_id&startdate_time&url=28')
+		common.createListItem('Russian', True, 'plugin://plugin.video.filmon/?description&group=RUSSIAN TV&iconimage=http://static.filmon.com/couch/groups/130/big_logo.png&mode=3&name=RUSSIAN TV&programme_id&startdate_time&url=130')
 		common.createListItem('Turkish', True, url+'LiveTVMenu&category=turkish')
+		common.createListItem('UK', True, 'plugin://plugin.video.filmon/?description&group=UK LIVE TV&iconimage=http://static.filmon.com/couch/groups/5/big_logo.png&mode=3&name=UK LIVE TV&programme_id&startdate_time&url=5')
 
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 

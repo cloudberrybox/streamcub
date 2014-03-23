@@ -122,6 +122,7 @@ def SearchDialog(type,title,year,season,number,go=False):
 	k = 0
 	found720p = False
 	foundDvd = False
+	foundAtleastOneCached = False
 	if go:
 		pDialog = xbmcgui.DialogProgress()
 		pDialog.create('Searching for files')
@@ -163,21 +164,20 @@ def SearchDialog(type,title,year,season,number,go=False):
 					titletoCheck = common.CleanFileName(title).lower().replace(' ','')
 					if myParser.quality: myquality = myParser.quality
 					movie_name =  '''{0} {1} S{2:0>2}E{3:0>2}'''.format(myquality,myNametoCheck, mySeason, myNumber)					
-					if file['is_ready']=='0':
-						movie_name =  '[COLOR red]' + dirname + '[/COLOR]'
-					else:
-						movie_name =  dirname					
 					
 					if int(mySeason) <> int(season):
-						print 'break'
 						break
 					elif titletoCheck == myNametoCheck and int(mySeason)==int(season) and int(myNumber)==int(number) and myquality.value>0:
 						valid= True
-		
-				
-					
+
 					#Notification(mycheck.lower(),query.lower())
 					if valid:
+						if file['is_ready']=='0':
+							movie_name =  '[COLOR red]' + dirname + '[/COLOR]'
+						else:
+							movie_name =  dirname
+							foundAtleastOneCached = True
+
 						#Notification('Quality:',str(myquality))
 						quality_options.append('[' + mysize + '] '+str(myquality) + ' ' + movie_name)
 						quality_ids.append(file['info_hash'])
@@ -204,7 +204,7 @@ def SearchDialog(type,title,year,season,number,go=False):
 					else:
 						continue
 				else:
-					movie_name =  str(myquality) + ' ' + dirname
+					movie_name = str(myquality) + ' ' + dirname
 				movie_name2 = str(myquality) + ' ' + title.strip() + ' (' + str(year) + ')'
 			
 
@@ -236,17 +236,14 @@ def SearchDialog(type,title,year,season,number,go=False):
 
 			
 
-	if len(unique_qualities)<=2 and type=='Show':
-		
-
+	if not foundAtleastOneCached and type=='Show':
 		season_episode = "s%.2de%.2d" % (int(season), int(number))
 		season_episode2 = "%d%.2d" % (int(season), int(number))
 	
-		tv_show_season = "%s season" % (title)
+		tv_show_season = "%s season %d" % (title, int(season))
 		tv_show_episode = "%s %s" % (title, season_episode)
 
 		dirs2 = []
-		dirs2.extend(furklib.myFiles(title))
 		try:
 			dirs2.extend(furklib.searchFurk(tv_show_episode))
 		except:
@@ -255,12 +252,6 @@ def SearchDialog(type,title,year,season,number,go=False):
 			dirs2.extend(furklib.searchFurk(tv_show_season))
 		except:
 			pass
-		try:
-			dirs2.extend(furklib.searchFurk(title))
-		except:
-			pass
-		 
-	        #files = remove_list_duplicates(files)
 
 		# dirs2 = files
 		titletoCheck = re.sub(r'\([^)]*\)', '', title)
@@ -268,10 +259,6 @@ def SearchDialog(type,title,year,season,number,go=False):
 
 		dir_names = []
 		dir_ids = []
-		
-		if go:
-			pDialog = xbmcgui.DialogProgress()
-			pDialog.create('Searching for files')
 		
 		count = 0
 
@@ -282,11 +269,11 @@ def SearchDialog(type,title,year,season,number,go=False):
 			text = "%s files found ->" % len(quality_options) 
 			for qual in unique_qualities:
 				text = text + qual +','
-				if go:
-					pDialog.update(percent, text)
-					if pDialog.iscanceled(): 
-						pDialog.close()
-		        		break
+			if go:
+				pDialog.update(percent, text)
+			if pDialog.iscanceled(): 
+				pDialog.close()
+				break
 
 			if settings.getSetting('search_only_cached_files')=='true' and d['is_ready']=='0':
 				continue
@@ -296,12 +283,10 @@ def SearchDialog(type,title,year,season,number,go=False):
 			print 'dirname:'+dirnametoCheck
 			if dirnametoCheck.startswith(titletoCheck) and 'season' in dirnametoCheck and str(season) in dirnametoCheck:
 				print 'filebyfile for:'+dirnametoCheck
-				filebyfile(d['info_hash'],d['name'],title,year,season,number)
+				filebyfile(False,d['info_hash'],d['name'],title,year,season,number)
 			
 		
 		for d in dirs2:
-			if len(quality_options)>0:
-				continue
 			if d['is_ready']=='0':
 				continue
 			if not (d['name'].lower().startswith(title.lower())):
@@ -315,32 +300,23 @@ def SearchDialog(type,title,year,season,number,go=False):
 			for dirname in dir_names:
 				id = dir_ids[idx]
 				idx = idx + 1 
-				filebyfile(id,dirname,title,year,season,number)
+				filebyfile(False,id,dirname,title,year,season,number)
+				if pDialog.iscanceled(): 
+					pDialog.close()
+	        		break
 		else:
 			pass
 
 	if go:	
 		pDialog.close()
-
-	if len(quality_options)==0 and len(unquality_options)>0:
-		dialog = xbmcgui.Dialog()	
-		dialog.ok("Error", "Nothing of good quality", "Making a similar search" )	
-		quality_options = unquality_options
-		quality_cleanname = unquality_cleanname
-		quality_urls = unquality_urls
-		quality_ids= unquality_ids
 	
-
-        if len(quality_options) > 1 :       
-		dialog = xbmcgui.Dialog()	
+	if len(quality_options) >= 1:
+		dialog = xbmcgui.Dialog()
 		quality_select = dialog.select('Select quality', quality_options)
-	elif len(quality_options)==1:
-		common.Notification('Found only:',quality_options[0].split(' ',1)[0])
-		quality_select = 0
 	else:
 		quality_select = -1
 	
-	if len(quality_options)==0:
+	if len(quality_options) == 0:
 		dialog = xbmcgui.Dialog()	
 		dialog.ok("Error", "Nothing found", "" )	
 
@@ -442,7 +418,7 @@ def guess_series(title):
                 if parser.valid:
                     return parser
 
-def filebyfile(id,dirname,title,year,season,number):
+def filebyfile(append,id,dirname,title,year,season,number):
 		global quality_options
 		global quality_urls
 		global quality_cleanname 
@@ -501,16 +477,29 @@ def filebyfile(id,dirname,title,year,season,number):
 					valid= True
 	
 			if valid:
-				quality_options.append('[' + mysize + '] '+str(myquality) + ' ' + name)
-				quality_cleanname.append(clean_name)
-				quality_urls.append(play_url)
-				if not str(myquality) in unique_qualities:
-					unique_qualities.append(str(myquality))
-				break
+				if append:
+					quality_options.append('[' + mysize + '] '+str(myquality) + ' ' + name)
+					quality_cleanname.append(clean_name)
+					quality_urls.append(play_url)
+					if not str(myquality) in unique_qualities:
+						unique_qualities.append(str(myquality))
+					break
+				else:
+					quality_options.insert(0, '[' + mysize + '] '+str(myquality) + ' ' + name)
+					quality_cleanname.insert(0, clean_name)
+					quality_urls.insert(0, play_url)
+					if not str(myquality) in unique_qualities:
+						unique_qualities.insert(0, str(myquality))
+					break
 			else:
-				unquality_options.append('[' + mysize + '] '+movie_name)
-				unquality_cleanname.append(movie_name)
-				unquality_urls.append(play_url)
+				if append:
+					unquality_options.append('[' + mysize + '] '+movie_name)
+					unquality_cleanname.append(movie_name)
+					unquality_urls.append(play_url)
+				else:
+					unquality_options.insert(0, '[' + mysize + '] '+movie_name)
+					unquality_cleanname.insert(0, movie_name)
+					unquality_urls.insert(0, play_url)
 		return
 
 def listfiles(id):
