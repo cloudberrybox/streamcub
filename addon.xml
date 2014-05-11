@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.streamcub" version="1.2.1" name="Streamcub" provider-name="Streamcub team">
+<addon id="plugin.video.streamcub" version="1.2.2" name="Streamcub" provider-name="Streamcub team">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="script.module.beautifulsoup" version="3.0.8"/>
+		<import addon="plugin.video.filmontv" version="1.4"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource"
 	           library="default.py">
@@ -13,8 +14,7 @@
 
 	<extension point="xbmc.addon.metadata">
         <summary>Watch content from Streamcub</summary>
-        <description>
-</description>
+        <description>Streamcub is a online bit-torrent cloud storage service that allows users to stream video directly into a web browser, your media box, iPad, iPhone or Desktop. The service is fast and secure and does not have any storage limitations. You can add as many torrents as you like to your account and you only pay for the bandwidth you use when streaming. Get your own free account at www.streamcub.com</description>
         <platform>all</platform>
 		<disclaimer>
 			
