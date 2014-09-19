@@ -284,7 +284,7 @@ def createMovieListItemTrakt(movie, movietitle = None,movieyear = None, totalIte
 	if movie:
 		addMovieInfotoListitem(li,movie)
 	url = sys.argv[0]+'?action=SearchMe&go=now&type=Movie&title='+CleanFileName(movietitle)+'&year='+str(movieyear)+'&imdbid='+str(imdbid)
-	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=False, totalItems = totalItems)
+	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True, totalItems = totalItems)
 
 
 def createShowSeasonListItemTrakt(show, season, tvdbid, totalItems = 10):

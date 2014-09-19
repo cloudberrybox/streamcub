@@ -219,7 +219,7 @@ def calculateProgress():
 	return shows
 
 def displayList(user,slug):
-	#xbmcplugin.setContent(int(sys.argv[1]), 'movies')
+	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 	myList = traktlib.getList(user,slug)
 	movies = []
 	shows = []
