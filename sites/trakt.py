@@ -472,12 +472,12 @@ def traktAction(params):
 	elif(params['action'] == 'trakt_TrendingShows'):
 		xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 		shows = traktlib.getTrendingShowsFromTrakt()
-		progressShows = calculateProgress()
+		#progressShows = calculateProgress()
 		for show in shows:
-			if show['title'] in progressShows:
-				common.createShowListItemTrakt(show,len(shows))#,progressShows[show['title']][0],progressShows[show['title']][1])
-			else:
-				common.createShowListItemTrakt(show,totalItems = len(shows))
+			#if show['title'] in progressShows:
+			#	common.createShowListItemTrakt(show,len(shows))#,progressShows[show['title']][0],progressShows[show['title']][1])
+			#else:
+			common.createShowListItemTrakt(show,totalItems = len(shows))
 		common.endofDir()
 	
 	elif(params['action'] == 'trakt_Progress'):
