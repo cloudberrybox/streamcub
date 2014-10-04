@@ -8,7 +8,7 @@ from utils import settings
 __plugin__ = 'Streamcub Library'
 __author__ = 'Streamcub Team'
 __url__ = 'http://www.streamcub.com'
-__version__ = '1.2.5'
+__version__ = '1.2.6'
 
 print "[PLUGIN] '%s: version %s' initialized!" % (__plugin__, __version__)
 

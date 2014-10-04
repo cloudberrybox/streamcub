@@ -376,7 +376,7 @@ def createStreamListItem(title, iconImage, url, totalItems = 10):
 def endofDir():
 	pluginhandle=int(sys.argv[1])
 	xbmcplugin.endOfDirectory(pluginhandle)
-        xbmcplugin.addSortMethod(pluginhandle, xbmcplugin.SORT_METHOD_VIDEO_RATING)
+        #xbmcplugin.addSortMethod(pluginhandle, xbmcplugin.SORT_METHOD_VIDEO_RATING)
 	return
 
 def checkEnded(show_name):
