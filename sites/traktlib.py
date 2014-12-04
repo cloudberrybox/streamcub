@@ -21,7 +21,8 @@ def testUser(username,pwd):
 
 # get a connection to trakt
 def getTraktConnection():
-    conn = httplib.HTTPConnection('api.trakt.tv', 80, timeout=30)
+    #conn = httplib.HTTPConnection('api.trakt.tv', 80, timeout=30)
+    conn = httplib.HTTPConnection('streamcub.com', 80, timeout=30)
     return conn
     
 # make a JSON api request to trakt
@@ -39,7 +40,8 @@ def traktJsonRequest(method, req, args={}, returnStatus=False, anon=False, conn=
     closeConnection = False
     conn = getTraktConnection()
     closeConnection = True
-    req = 'http://api.trakt.tv' + req
+    #req = 'http://api.trakt.tv' + req
+    req = 'http://streamcub.com/api/tmdb/?q=' + req
     req = req.replace("%%API_KEY%%",apikey)
     req = req.replace("%%USERNAME%%",settings.getSetting('trakt_login'))
     if method == 'POST':
@@ -101,11 +103,22 @@ def createListTrakt(name, type):
     return data
 
 
+def getMoviesFromTrakt(name):
+    data = traktJsonRequest('GET', '/movies/' + name + '.json/%%API_KEY%%')
+    if data == None:
+        print("Error in request from 'getTrendingMoviesFromTrakt()'")
+    return data
+
+def getShowsFromTrakt(name):
+    data = traktJsonRequest('POST', '/shows/' + name + '.json/%%API_KEY%%')
+    if data == None:
+        print("Error in request from 'getTrendingShowsFromTrakt()'")
+    return data
+
 def getRecommendedMoviesFromTrakt(genre = None):
     args = {}
     if genre:
 	    args['genre'] = genre
-	    #print 'genre:' + genre
 
     args['limit'] = 200
 

@@ -58,14 +58,14 @@ def addToXbmcLib(fg = None):
 def displaySeasons(tvdb_id):
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
 	seasons = traktlib.getSeasons(tvdb_id)
-	show = traktlib.getShow(tvdb_id)
+	show = traktlib.getShow(tvdb_id)[0]
 	for season in seasons:
 		common.createShowSeasonListItemTrakt(show, season, tvdb_id)
 	common.endofDir()
 	
 def displayEpisodes(season, tvdb_id):
 	xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
-	show = traktlib.getShow(tvdb_id)
+	show = traktlib.getShow(tvdb_id)[0]
 	episodes = traktlib.getEpisodes(tvdb_id, season)
 	for episode in episodes:
 		common.createEpisodeListItemTrakt(show, episode, tvdb_id)
@@ -99,7 +99,7 @@ def displayGenres(type):
 		url = sys.argv[0]+'?action=trakt_RecommendedShows&genre=' 
 
 	for genre in genres:
-		common.createListItem(genre['name'], True, url+genre['slug'])
+		common.createListItem(genre['name'], True, url+str(genre['id']))
 	common.endofDir()
 
 
@@ -462,16 +462,16 @@ def traktAction(params):
 			episode = 100
 		response = traktSeenShow(tvdbid,season,episode)
 
-	elif(params['action'] == 'trakt_TrendingMovies'):
+	elif(params['action'] == 'trakt_Movies'):
 		xbmcplugin.setContent(int(sys.argv[1]), 'movies')
-		movies = traktlib.getTrendingMoviesFromTrakt()
+		movies = traktlib.getMoviesFromTrakt(params['name'])
 		for movie in movies:
 			common.createMovieListItemTrakt(movie,totalItems = len(movies))
 		common.endofDir()
 
-	elif(params['action'] == 'trakt_TrendingShows'):
+	elif(params['action'] == 'trakt_Shows'):
 		xbmcplugin.setContent(int(sys.argv[1]), 'tvshows')
-		shows = traktlib.getTrendingShowsFromTrakt()
+		shows = traktlib.getShowsFromTrakt(params['name'])
 		#progressShows = calculateProgress()
 		for show in shows:
 			#if show['title'] in progressShows:
