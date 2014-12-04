@@ -8,7 +8,7 @@ from utils import settings
 __plugin__ = 'Streamcub Library'
 __author__ = 'Streamcub Team'
 __url__ = 'http://www.streamcub.com'
-__version__ = '1.2.6'
+__version__ = '1.3.0'
 
 print "[PLUGIN] '%s: version %s' initialized!" % (__plugin__, __version__)
 
@@ -178,6 +178,7 @@ elif(params['action'] == 'SearchMe'):
     season = 0
     episode = 0
     movie = None
+    episodedata = None
     if type=='Show':
         type = params['type']
         season = params['season']
