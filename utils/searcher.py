@@ -57,6 +57,11 @@ def getMyFiles():
 		common.endofDir()
 	return
 
+def showAccountPicture():
+	xbmc.executebuiltin("ShowPicture(http://streamcub.com/api/bwusage.php?username=" + 
+		settings.getSetting('username') + "&password=" + settings.getSetting('password') + ")");
+	return
+
 def download(id):
 	dialog = xbmcgui.Dialog()
 	if dialog.yesno("Download", "This file is not cached", "Would you like us to download it for you?", 'We will send you an e-mail when it is done'):

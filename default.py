@@ -8,7 +8,7 @@ from utils import settings
 __plugin__ = 'Streamcub Library'
 __author__ = 'Streamcub Team'
 __url__ = 'http://www.streamcub.com'
-__version__ = '1.3.1'
+__version__ = '1.3.2'
 
 print "[PLUGIN] '%s: version %s' initialized!" % (__plugin__, __version__)
 
@@ -56,14 +56,15 @@ def AddonMenu():  #homescreen
 	#common.createListItem('Live TV',True,url + 'LiveTVMenu')
 	common.createListItem('Search all torrents', True, url+'search')
 	common.createListItem('Setup',False,url +'setup')
+	common.createListItem('Account usage', True, url+'accountUsage')
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def ShowMenu():  #homescreen
 	print 'Streamcub TV show menu'
 	url = sys.argv[0]+'?action='
 	common.createListItem('Search TV Show', True, url+'trakt_SearchShows')
-	common.createListItem('[COLOR green]Genres[/COLOR]', True, url +'trakt_ShowGenres')
-	common.createListItem('[COLOR green]Featured[/COLOR]', True, url +'trakt_Shows&name=featured')
+	common.createListItem('Genres', True, url +'trakt_ShowGenres')
+	common.createListItem('Featured', True, url +'trakt_Shows&name=featured')
 	common.createListItem('Most Popular', True, url +'trakt_Shows&name=trending')
 	common.createListItem('Highly Rated', True, url +'trakt_Shows&name=top_rated')
 	common.createListItem('Airing This Week', True, url +'trakt_Shows&name=on_the_air')
@@ -74,12 +75,12 @@ def MovieMenu():  #homescreen
 	print 'Streamcub Movie menu'
 	url = sys.argv[0]+'?action='
 	common.createListItem('Search Movie', True, url+'trakt_SearchMovies')
-	common.createListItem('[COLOR green]Genres[/COLOR]', True, url +'trakt_MovieGenres')
+	common.createListItem('Genres', True, url +'trakt_MovieGenres')
 	common.createListItem('Most Popular', True, url +'trakt_Movies&name=trending')
 	#common.createListItem('Playing in theaters', True, url +'trakt_Movies&name=now_playing')
-	common.createListItem('[COLOR green]Highly rated[/COLOR]', True, url +'trakt_Movies&name=top_rated')
-	common.createListItem('[COLOR green]Featured[/COLOR]', True, url +'trakt_Movies&name=featured')
-	common.createListItem('[COLOR green]Revenue[/COLOR]', True, url +'trakt_Movies&name=revenue')
+	common.createListItem('Highly rated', True, url +'trakt_Movies&name=top_rated')
+	common.createListItem('Featured', True, url +'trakt_Movies&name=featured')
+	common.createListItem('Revenue', True, url +'trakt_Movies&name=revenue')
 	#common.createListItem('Upcoming', True, url +'trakt_Movies&name=upcoming')
 	xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
@@ -144,6 +145,8 @@ if(params['action'] == 'search'):
 elif(params['action'] == 'myFiles'):
          searcher.getMyFiles()
 
+elif(params['action'] == 'accountUsage'):
+         searcher.showAccountPicture()
 
 elif(params['action'] == 'listFiles'):
 	id = params['id']
