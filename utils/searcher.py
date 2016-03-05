@@ -368,7 +368,7 @@ def SearchDialog(type,title,year,season,number,go=False):
 			for f in files:
 				myname = f['name'].lower()
 				#print myname
-				if 'sample' in myname:
+				if 'sample' in myname or int(f['length']) < 30:
 					continue
 				if myname.endswith('avi') or myname.endswith('mkv') or myname.endswith('mp4') or myname.endswith('iso') or myname.endswith('wmv'):
 					myurl = f['url_dl']
