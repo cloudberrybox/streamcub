@@ -135,6 +135,14 @@ def SearchDialog(type,title,year,season,number,go=False):
 	
 	if dirs:
 		for file in dirs:
+			# Test some variables if they exist
+			try:
+				file['is_ready']
+				file['size']
+			except:
+				continue
+				pass
+
 			count = count + 1
 			percent = int(float(count * 100) / len(dirs))
 			text = "%s files found ->" % len(quality_options) 
